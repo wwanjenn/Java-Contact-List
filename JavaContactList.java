@@ -7,6 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public class JavaContactList {
+
+    // createContact(String name)	Adds a new Contact
+    public void createContact(List<Contact> contacts, String name){
+        Contact newContact = new Contact()
+    }
+    // deleteContact(String name)	Removes by name (or ID)
+    // searchContact(String query)
+
+
     public static void main(String[] args) {
         try{
             FileReader reader = new FileReader("contacts.json");

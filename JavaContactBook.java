@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -21,7 +22,6 @@ public class JavaContactBook {
                 return;
             }
         }
-        
         Contact newContact = new Contact(name);
         contacts.add(newContact);
     }
@@ -58,9 +58,9 @@ public class JavaContactBook {
         return found;
     }
 
-    public void saveContactsToJson(List<Contact> contacts){
+    public void saveContactsToJson(List<Contact> contacts, String fileName){
         try {
-            FileWriter writer = new FileWriter("contacts.json", true);
+            FileWriter writer = new FileWriter(fileName, true);
             Gson gson = new Gson();
             
             gson.toJson(contacts, writer);
@@ -72,16 +72,16 @@ public class JavaContactBook {
         }
     }
 
-    public List<Contact> loadContactsFromJson(){
+    public List<Contact> loadContactsFromJson(String fileName){
         List<Contact> contacts = new ArrayList<>();
-        File file = new File("contacts.json");
+        File file = new File(fileName);
+        
         if(!file.exists()){
             System.out.println("File Doesn't Exist!");
             return contacts;
         }
-        
         try{
-            FileReader reader = new FileReader("contacts.json");
+            FileReader reader = new FileReader(fileName);
             Gson gson = new Gson();
 
             Type listType = new TypeToken<List<Contact>>() {}.getType();
@@ -101,6 +101,72 @@ public class JavaContactBook {
             e.printStackTrace();
         }
         return contacts;
+    }
+
+    public void loopConsole(){
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        System.out.println("=== Load File Name ===");
+        String fileName = scanner.nextLine();
+        scanner.nextLine();
+
+        List<Contact> contacts = loadContactsFromJson(fileName);
+
+        while(running){
+            System.out.println("=== Contact Book ===");
+            System.out.println("1. Create contact");
+            System.out.println("2. Search contact");
+            System.out.println("3. Update contact");
+            System.out.println("4. Delete contact");
+            System.out.println("5. Exit");
+            System.out.println("Choose an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Create contact selected");
+                    System.out.println("Name of Contact:");
+                    String createName = scanner.nextLine();
+                    scanner.nextLine();
+                    createContact(contacts, createName);
+                    break;
+                case 2:
+                    System.out.println("Search contact selected");
+                    System.out.println("Search Query:");
+                    String searchQuery = scanner.nextLine();
+                    scanner.nextLine();
+                    searchContact(contacts, searchQuery);
+                    break;
+                case 3:
+                    System.out.println("Update contact selected");
+                    System.out.println("Update Name: ");
+                    String updateName = scanner.nextLine();
+                    scanner.nextLine();
+                    System.out.println("=== Update Type ===");
+                    System.out.println("1. Name");
+                    System.out.println("2. ");
+                    System.out.println("");
+                    System.out.println("");
+                    createContact(contacts, createName);
+                    break;
+                case 4:
+                    System.out.println("Delete contact selected");
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+    public void processChoice(int choice){
+
     }
 
 

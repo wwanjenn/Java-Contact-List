@@ -7,6 +7,13 @@ public class Contact{
     Set<String> numbers ;
     Set<String> emails ;
 
+    // no args for Gson
+    public Contact(){
+        nicknames = new HashSet<>();
+        numbers = new HashSet<>();
+        emails = new HashSet<>();
+    }
+
     public Contact(String name) {
         this.name = name;
         nicknames = new HashSet<>();

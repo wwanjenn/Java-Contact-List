@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Alice Johnson",
+    "nicknames": ["Ally", "AJ"],
+    "phoneNumbers": ["09171234567", "+639171112222"],
+    "emails": {
+      "work": "alice.j@company.com",
+      "personal": "ajohnson@gmail.com"
+    }
+  },
+  {
+    "name": "Bob Reyes",
+    "nicknames": ["Bobby"],
+    "phoneNumbers": ["09998887777"],
+    "emails": {
+      "personal": "bob.reyes@yahoo.com"
+    }
+  },
+  {
+    "name": "Clara Yoon",
+    "nicknames": [],
+    "phoneNumbers": ["09175556666"],
+    "emails": {
+      "school": "cyoon@student.univ.ph"
+    }
+  },
+  {
+    "name": "David Lee",
+    "nicknames": ["Dave"],
+    "phoneNumbers": ["09081234567", "09181234567"],
+    "emails": {
+      "work": "dlee@techfirm.io"
+    }
+  },
+  {
+    "name": "Ella Torres",
+    "nicknames": ["El", "Ella T"],
+    "phoneNumbers": ["09271231234"],
+    "emails": {
+      "personal": "ella.torres@gmail.com",
+      "backup": "torres.e@hotmail.com"
+    }
+  }
+]

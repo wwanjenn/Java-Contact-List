@@ -56,8 +56,7 @@ public class Contact{
         emails.add(newEmail);
     }
 }
-// createContact(String name)	Adds a new Contact
-// deleteContact(String name)	Removes by name (or ID)
+
 // updateName(String oldName, String newName)	Changes name + map key
 // addPhoneNumber(String name, String number)	Adds to existing contact
 // removePhoneNumber(String name, String number)	Removes specific number

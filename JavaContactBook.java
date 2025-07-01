@@ -44,12 +44,20 @@ public class JavaContactBook {
     
     // searchContact(String query)
     public boolean searchContact(List<Contact> contacts, String query){
+        boolean found = false;
         for(Contact contact : contacts){
-            if(contact.getName().equalsIgnoreCase(query)){
+            if(contact.getName().toLowerCase().contains(query.toLowerCase())){
+                System.out.println("Contact Found!");
                 contact.printContact();
+                found = true;
+                break;
             }
         }
-        return true
+        if(!found){
+            System.out.println("Contact not found");
+        }
+
+        return found;
     }
 
 

@@ -17,7 +17,33 @@ public class Contact{
     public String getName(){
         return name;
     }
+
+    public Set<String> getNumbers(){
+        return numbers;
+    }
     
+    public Set<String> getNicknames(){
+        return nicknames;
+    }
+
+    public Set<String> getEmails(){
+        return emails;
+    }
+
+    public boolean matchesQuery(String query){
+        if(name.toLowerCase().contains(query)) return true;
+        for(String nickname : nicknames){
+            if(nickname.toLowerCase().contains(query)) return true;
+        }
+        for(String number : numbers){
+            if(number.toLowerCase().contains(query)) return true;
+        }
+        for(String email : emails){
+            if(email.toLowerCase().contains(query)) return true;
+        }
+        return false;
+    }
+
     public void printContact(){
         System.out.println(name);
         System.out.println(nicknames);

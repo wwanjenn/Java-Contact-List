@@ -3,6 +3,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,17 +44,43 @@ public class JavaContactBook {
     }
     
     // searchContact(String query)
-    public boolean searchContact(List<Contact> contacts, String query){
-        boolean found = false;
+    public List<Contact> searchContact(List<Contact> contacts, String query){
+        List<Contact> found = new ArrayList<>();
+        query = query.toLowerCase();
+
         for(Contact contact : contacts){
-            if(contact.getName().toLowerCase().contains(query.toLowerCase())){
-                System.out.println("Contact Found!");
-                contact.printContact();
-                found = true;
-                break;
+            boolean match = false;
+
+            if(contact.getName().toLowerCase().contains(query)){
+                match = true;
+            }
+
+            for(String nickname : contact.getNicknames()){
+                if(nickname.toLowerCase().contains(query)){
+                    match = true;
+                    break;
+                }
+            }
+
+            for(String number : contact.getNumbers()){
+                if(number.toLowerCase().contains(query)){
+                    match = true;
+                    break;
+                }
+            }
+
+            for(String email : contact.getEmails()){
+                if(email.toLowerCase().contains(query)){
+                    match = true;
+                    break;
+                }
+            }
+
+            if(match){
+                found.add(contact);
             }
         }
-        if(!found){
+        if(found.isEmpty()){
             System.out.println("Contact not found");
         }
 

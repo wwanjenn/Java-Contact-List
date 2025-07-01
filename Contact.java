@@ -1,10 +1,22 @@
+import java.util.HashSet;
 import java.util.Set;
 
 public class Contact{
-    public String name;
+    private String name;
     Set<String> nicknames;
     Set<String> numbers ;
     Set<String> emails ;
+
+    public Contact(String name) {
+        this.name = name;
+        nicknames = new HashSet<>();
+        numbers = new HashSet<>();
+        emails = new HashSet<>();
+    }
+
+    public String getName(){
+        return name;
+    }
     
     public void printContact(){
         System.out.println(name);

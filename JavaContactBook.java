@@ -6,11 +6,19 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-public class JavaContactList {
+public class JavaContactBook {
 
     // createContact(String name)	Adds a new Contact
     public void createContact(List<Contact> contacts, String name){
-        Contact newContact = new Contact()
+        for(Contact contact: contacts){
+            if(contact.getName().equalsIgnoreCase(name)){
+                System.out.println("Contact with this name already Exists!");
+                return;
+            }
+        }
+        
+        Contact newContact = new Contact(name);
+        contacts.add(newContact);
     }
     // deleteContact(String name)	Removes by name (or ID)
     // searchContact(String query)

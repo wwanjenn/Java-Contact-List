@@ -1,7 +1,9 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,52 +51,48 @@ public class JavaContactBook {
         query = query.toLowerCase();
 
         for(Contact contact : contacts){
-            boolean match = false;
-
-            if(contact.getName().toLowerCase().contains(query)){
-                match = true;
-            }
-
-            for(String nickname : contact.getNicknames()){
-                if(nickname.toLowerCase().contains(query)){
-                    match = true;
-                    break;
-                }
-            }
-
-            for(String number : contact.getNumbers()){
-                if(number.toLowerCase().contains(query)){
-                    match = true;
-                    break;
-                }
-            }
-
-            for(String email : contact.getEmails()){
-                if(email.toLowerCase().contains(query)){
-                    match = true;
-                    break;
-                }
-            }
-
-            if(match){
-                found.add(contact);
-            }
+            if(contact.matchesQuery(query)) found.add(contact);
         }
-        if(found.isEmpty()){
-            System.out.println("Contact not found");
-        }
+        if(found.isEmpty()) System.out.println("Contact not found");
 
         return found;
     }
 
+    public void saveContactsToJson(List<Contact> contacts){
+        try {
+            FileWriter writer = new FileWriter("contacts.json", true);
+            Gson gson = new Gson();
+            
+            gson.toJson(contacts, writer);
+            writer.close();
 
-    public static void main(String[] args) {
+            System.out.println("Contacts Saved.");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public List<Contact> loadContactsFromJson(){
+        List<Contact> contacts = new ArrayList<>();
+        File file = new File("contacts.json");
+        if(!file.exists()){
+            System.out.println("File Doesn't Exist!");
+            return contacts;
+        }
+        
         try{
             FileReader reader = new FileReader("contacts.json");
             Gson gson = new Gson();
 
             Type listType = new TypeToken<List<Contact>>() {}.getType();
-            List<Contact> contacts = gson.fromJson(reader,listType);
+            contacts = gson.fromJson(reader,listType);
+
+            if(contacts == null){
+                System.out.println("Warning! Content is empty -- starting fresh");
+                contacts = new ArrayList<>();
+                return contacts;
+            }
+
             for(Contact contact: contacts){
                 contact.printContact();
             }
@@ -102,5 +100,11 @@ public class JavaContactBook {
         }catch(Exception e){
             e.printStackTrace();
         }
+        return contacts;
+    }
+
+
+    public static void main(String[] args) {
+       
     }
 }

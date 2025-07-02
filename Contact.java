@@ -110,7 +110,7 @@ public class Contact{
         if(numbers.contains(oldNumber)){
             numbers.remove(oldNumber);
             numbers.add(newNumber);
-            System.out.println("Number removed");
+            System.out.println("Updated Number: " + numbers);
         } else {
             System.out.println("Number not found");
         }
@@ -121,7 +121,7 @@ public class Contact{
         if(nicknames.contains(oldNickname)){
             nicknames.remove(oldNickname);
             nicknames.add(newNickname);
-            System.out.println("Nickname removed");
+            System.out.println("Updated Nickname: " + nicknames);
         } else {
             System.out.println("Nickname not found");
         }
@@ -132,7 +132,7 @@ public class Contact{
         if(emails.contains(oldEmail)){
             emails.remove(oldEmail);
             emails.add(newEmail);
-            System.out.println("Email updated");
+            System.out.println("Updated Email: " + emails);
         } else {
             System.out.println("Email not found");
         }

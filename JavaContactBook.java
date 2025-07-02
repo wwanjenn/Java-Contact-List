@@ -141,20 +141,81 @@ public class JavaContactBook {
                     searchContact(contacts, searchQuery);
                     break;
                 case 3:
+                    Contact updateContact;
                     System.out.println("Update contact selected");
                     System.out.println("Update Name: ");
                     String updateName = scanner.nextLine();
                     scanner.nextLine();
+
+                    for(Contact contact: contacts) {
+                        if(contact.matchesQuery(updateName)){
+                            updateContact = contact;
+                        }
+                    }
+
                     System.out.println("=== Update Type ===");
-                    System.out.println("1. Name");
-                    System.out.println("2. ");
-                    System.out.println("");
-                    System.out.println("");
-                    createContact(contacts, createName);
+                    System.out.println("1. Update Name");
+                    System.out.println("2. Update Number");
+                    System.out.println("3. Update Email");
+                    System.out.println("4. Update Nickname");
+                    int choiceUpdate = scanner.nextInt();
+                    scanner.nextLine();
+                    switch(choiceUpdate){
+                        case 1:
+                            System.out.println("=== Update Name ===");
+                            System.out.println("New Name:");
+                            String newName = scanner.nextLine();
+                            scanner.nextLine();
+                            updateContact.updateName(newName);
+                            break;
+                        case 2:
+                            System.out.println("=== Update Number ===");
+                            System.out.println("Old Number:");
+                            String oldNumber = scanner.nextLine();
+                            scanner.nextLine();
+                            System.out.println("New Number:");
+                            String newNumber = scanner.nextLine();
+                            scanner.nextLine();
+                            updateContact.updatePhoneNumber(newNumber, oldNumber);
+                            break;
+                        case 3:
+                            System.out.println("=== Update Email ===");
+                            System.out.println("Old Email:");
+                            String oldEmail = scanner.nextLine();
+                            scanner.nextLine();
+                            System.out.println("New Email:");
+                            String newEmail = scanner.nextLine();
+                            scanner.nextLine();
+                            updateContact.updateEmail(newEmail, oldEmail);
+                            break;
+                        case 4:
+                            System.out.println("=== Update Nickname ===");
+                            System.out.println("Old Nickname:");
+                            String oldNickname = scanner.nextLine();
+                            scanner.nextLine();
+                            System.out.println("New Nickname: ");
+                            String newNickname = scanner.nextLine();
+                            scanner.nextLine();
+                            updateContact.updateNickname(newNickname, oldNickname);
+                            break;
+                        default:
+                            break;
+                    }
+
                     break;
                 case 4:
                     System.out.println("Delete contact selected");
-                    break;
+                    Contact updateContact;
+                    System.out.println("Update contact selected");
+                    System.out.println("Update Name: ");
+                    String updateName = scanner.nextLine();
+
+                    for(Contact contact: contacts) {
+                        if(contact.matchesQuery(updateName)){
+                            updateContact = contact;
+                        }
+                    }
+                    
                 case 5:
                     System.out.println("Exiting...");
                     running = false;

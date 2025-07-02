@@ -130,27 +130,29 @@ public class JavaContactBook {
                     System.out.println("Create contact selected");
                     System.out.println("Name of Contact:");
                     String createName = scanner.nextLine();
-                    scanner.nextLine();
                     createContact(contacts, createName);
                     break;
                 case 2:
                     System.out.println("Search contact selected");
                     System.out.println("Search Query:");
                     String searchQuery = scanner.nextLine();
-                    scanner.nextLine();
                     searchContact(contacts, searchQuery);
                     break;
                 case 3:
-                    Contact updateContact;
+                    Contact updateContact = null;
                     System.out.println("Update contact selected");
                     System.out.println("Update Name: ");
                     String updateName = scanner.nextLine();
-                    scanner.nextLine();
 
                     for(Contact contact: contacts) {
                         if(contact.matchesQuery(updateName)){
                             updateContact = contact;
                         }
+                    }
+
+                    if(updateContact == null){
+                        System.out.println("Contact not found");
+                        break;
                     }
 
                     System.out.println("=== Update Type ===");
@@ -165,71 +167,66 @@ public class JavaContactBook {
                             System.out.println("=== Update Name ===");
                             System.out.println("New Name:");
                             String newName = scanner.nextLine();
-                            scanner.nextLine();
                             updateContact.updateName(newName);
                             break;
                         case 2:
                             System.out.println("=== Update Number ===");
                             System.out.println("Old Number:");
                             String oldNumber = scanner.nextLine();
-                            scanner.nextLine();
                             System.out.println("New Number:");
                             String newNumber = scanner.nextLine();
-                            scanner.nextLine();
                             updateContact.updatePhoneNumber(newNumber, oldNumber);
                             break;
                         case 3:
                             System.out.println("=== Update Email ===");
                             System.out.println("Old Email:");
                             String oldEmail = scanner.nextLine();
-                            scanner.nextLine();
                             System.out.println("New Email:");
                             String newEmail = scanner.nextLine();
-                            scanner.nextLine();
                             updateContact.updateEmail(newEmail, oldEmail);
                             break;
                         case 4:
                             System.out.println("=== Update Nickname ===");
                             System.out.println("Old Nickname:");
                             String oldNickname = scanner.nextLine();
-                            scanner.nextLine();
                             System.out.println("New Nickname: ");
                             String newNickname = scanner.nextLine();
-                            scanner.nextLine();
                             updateContact.updateNickname(newNickname, oldNickname);
                             break;
                         default:
+                            System.out.println("Invalid update choice");
                             break;
                     }
 
                     break;
                 case 4:
                     System.out.println("Delete contact selected");
-                    Contact updateContact;
-                    System.out.println("Update contact selected");
-                    System.out.println("Update Name: ");
-                    String updateName = scanner.nextLine();
+                    Contact deleteContact = null;
+                    System.out.println("Delete Name: ");
+                    String deleteName = scanner.nextLine();
 
                     for(Contact contact: contacts) {
-                        if(contact.matchesQuery(updateName)){
-                            updateContact = contact;
+                        if(contact.matchesQuery(deleteName)){
+                            deleteContact = contact;
                         }
                     }
+
+                    if(updateContact == null){
+                        System.out.println("Contact not found");
+                        break;
+                    }
                     
+                    break;
                 case 5:
                     System.out.println("Exiting...");
                     running = false;
                     break;
                 default:
                     System.out.println("Invalid option");
+                    break;
             }
         }
     }
-
-    public void processChoice(int choice){
-
-    }
-
 
     public static void main(String[] args) {
        

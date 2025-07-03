@@ -60,7 +60,7 @@ public class JavaContactBook {
 
     public void saveContactsToJson(List<Contact> contacts, String fileName){
         try {
-            FileWriter writer = new FileWriter(fileName, true);
+            FileWriter writer = new FileWriter(fileName);
             Gson gson = new Gson();
             
             gson.toJson(contacts, writer);
@@ -281,6 +281,6 @@ public class JavaContactBook {
 
 
     public static void main(String[] args) {
-       
+       new JavaContactBook().loopConsole();
     }
 }

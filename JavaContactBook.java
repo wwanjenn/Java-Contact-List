@@ -100,6 +100,11 @@ public class JavaContactBook {
         }catch(Exception e){
             e.printStackTrace();
         }
+        int maxID;
+        for(Contact contact: contacts){
+            if(contact.getID() > maxID) maxID = contact.getID();
+        }
+        Contact.setNextID(maxID);
         return contacts;
     }
 

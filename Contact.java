@@ -3,6 +3,8 @@ import java.util.Set;
 
 public class Contact{
     private String name;
+    private static int nextID = 1;
+    private final int id;
     Set<String> nicknames;
     Set<String> numbers ;
     Set<String> emails ;
@@ -15,14 +17,23 @@ public class Contact{
     }
 
     public Contact(String name) {
+        this.id = nextID++;
         this.name = name;
         nicknames = new HashSet<>();
         numbers = new HashSet<>();
         emails = new HashSet<>();
     }
 
+    public static void setNextID(int nextIDValue){
+        nextID = nextIDValue;
+    }
+
     public String getName(){
         return name;
+    }
+
+    public int getID(){
+        return id;
     }
 
     public Set<String> getNumbers(){

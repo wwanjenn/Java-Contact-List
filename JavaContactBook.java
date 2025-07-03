@@ -107,11 +107,13 @@ public class JavaContactBook {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+        boolean saved = true;
+
         System.out.println("=== Load File Name ===");
-        String fileName = scanner.nextLine();
-        scanner.nextLine();
+        String fileName = parseStringChoice(scanner, "Filename: ");
 
         List<Contact> contacts = loadContactsFromJson(fileName);
+        if(contacts == null) contacts = new ArrayList<>();
 
         while(running){
             System.out.println("=== Contact Book ===");
@@ -119,33 +121,31 @@ public class JavaContactBook {
             System.out.println("2. Search contact");
             System.out.println("3. Update contact");
             System.out.println("4. Delete contact");
-            System.out.println("5. Exit");
-            System.out.println("Choose an option: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("5. View all contacts");
+            System.out.println("6. Save");
+            System.out.println("7. Exit");
+    
+            int choice = parseIntChoice(scanner, "Choose an option: ");
 
             switch (choice) {
                 case 1:
                     System.out.println("Create contact selected");
-                    System.out.println("Name of Contact:");
-                    String createName = scanner.nextLine();
+                    String createName = parseStringChoice(scanner, "Name of Contact: ");
                     createContact(contacts, createName);
+                    saved = false;                    
                     break;
                 case 2:
                     System.out.println("Search contact selected");
-                    System.out.println("Search Query:");
-                    String searchQuery = scanner.nextLine();
+                    String searchQuery = parseStringChoice(scanner, "Search Query: ");
                     searchContact(contacts, searchQuery);
                     break;
                 case 3:
                     Contact updateContact = null;
                     System.out.println("Update contact selected");
-                    System.out.println("Update Name: ");
-                    String updateName = scanner.nextLine();
+                    String updateName = parseStringChoice(scanner, "Update Name: ");
 
                     for(Contact contact: contacts) {
-                        if(contact.matchesQuery(updateName)){
+                        if(contact.getName().equalsIgnoreCase(updateName)){
                             updateContact = contact;
                         }
                     }
@@ -160,73 +160,120 @@ public class JavaContactBook {
                     System.out.println("2. Update Number");
                     System.out.println("3. Update Email");
                     System.out.println("4. Update Nickname");
-                    int choiceUpdate = scanner.nextInt();
-                    scanner.nextLine();
+                    int choiceUpdate = parseIntChoice(scanner, "Choose an option: ");
                     switch(choiceUpdate){
                         case 1:
                             System.out.println("=== Update Name ===");
-                            System.out.println("New Name:");
-                            String newName = scanner.nextLine();
+                            System.out.println("New Name: ");
+                            String newName = parseStringChoice(scanner, "New Name: ");
                             updateContact.updateName(newName);
+                            saved = false;
                             break;
                         case 2:
                             System.out.println("=== Update Number ===");
-                            System.out.println("Old Number:");
-                            String oldNumber = scanner.nextLine();
-                            System.out.println("New Number:");
-                            String newNumber = scanner.nextLine();
+                            String oldNumber = parseStringChoice(scanner, "Old Number: ");
+                            String newNumber = parseStringChoice(scanner, "New Number: ");
                             updateContact.updatePhoneNumber(newNumber, oldNumber);
+                            saved = false;
                             break;
                         case 3:
                             System.out.println("=== Update Email ===");
-                            System.out.println("Old Email:");
-                            String oldEmail = scanner.nextLine();
-                            System.out.println("New Email:");
-                            String newEmail = scanner.nextLine();
+                            String oldEmail = parseStringChoice(scanner, "Old Email: ");
+                            String newEmail = parseStringChoice(scanner, "New Email: ");
                             updateContact.updateEmail(newEmail, oldEmail);
+                            saved = false;
                             break;
                         case 4:
                             System.out.println("=== Update Nickname ===");
-                            System.out.println("Old Nickname:");
-                            String oldNickname = scanner.nextLine();
-                            System.out.println("New Nickname: ");
-                            String newNickname = scanner.nextLine();
+                            String oldNickname = parseStringChoice(scanner, "Old Nickname: ");
+                            String newNickname = parseStringChoice(scanner, "New Nickname: ");
                             updateContact.updateNickname(newNickname, oldNickname);
+                            saved = false;
                             break;
                         default:
                             System.out.println("Invalid update choice");
                             break;
                     }
-
                     break;
                 case 4:
                     System.out.println("Delete contact selected");
                     Contact deleteContact = null;
-                    System.out.println("Delete Name: ");
-                    String deleteName = scanner.nextLine();
+                    System.out.println("Delete Contact Name: ");
+                    String deleteContactName = parseStringChoice(scanner, "Delete Contact Name: ");
 
                     for(Contact contact: contacts) {
-                        if(contact.matchesQuery(deleteName)){
+                        if(contact.getName().equalsIgnoreCase(deleteContactName)){
                             deleteContact = contact;
                         }
                     }
-
-                    if(updateContact == null){
+                    if(deleteContact == null){
                         System.out.println("Contact not found");
                         break;
                     }
-                    
+                    deleteContact(contacts, deleteContactName);
+                    saved = false;                    
                     break;
                 case 5:
+                    System.out.println("Contact List: " + fileName);
+                    System.out.println("Total Contacts: " + contacts.size());
+                    for(Contact contact: contacts){
+                        contact.printContact();
+                    }
+                    break; 
+                case 6:
+                    System.out.println("Saving...");
+                    saveContactsToJson(contacts, fileName);
+                    saved = true;
+                    break;
+                case 7:
                     System.out.println("Exiting...");
-                    running = false;
+                    if(saved) running = false;
+                    else System.out.println("Save changes before exiting");
                     break;
                 default:
                     System.out.println("Invalid option");
+
                     break;
             }
         }
     }
+
+    public int parseIntChoice(Scanner scanner, String prompt){
+        while(true){
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a number");
+            }
+        }
+    }
+    
+    public String parseStringChoice(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            if (input.isBlank()) {
+                System.out.println("Input cannot be empty. Please try again.");
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public Boolean parseConfirmation(Scanner scanner, String prompt){
+        while (true) {
+            System.out.println(prompt + "%nAre you sure?(Y/N)");
+            String input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("y")) return true;
+            else if(input.equalsIgnoreCase("n")) return false;
+            else System.out.println("Please enter Y or N");
+        }
+    }
+
 
     public static void main(String[] args) {
        

@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
+import java.util.Iterator;
 
 public class JavaContactBook {
 
@@ -46,7 +45,7 @@ public class JavaContactBook {
     }
     
     // searchContact(String query)
-    public List<Contact> searchContact(List<Contact> contacts, String query){
+    public void searchContact(List<Contact> contacts, String query){
         List<Contact> found = new ArrayList<>();
         query = query.toLowerCase();
 
@@ -54,8 +53,9 @@ public class JavaContactBook {
             if(contact.matchesQuery(query)) found.add(contact);
         }
         if(found.isEmpty()) System.out.println("Contact not found");
-
-        return found;
+        for(Contact f: found){
+            f.printContact();
+        }
     }
 
     public void saveContactsToJson(List<Contact> contacts, String fileName){
@@ -100,7 +100,7 @@ public class JavaContactBook {
         }catch(Exception e){
             e.printStackTrace();
         }
-        int maxID;
+        int maxID = 0;
         for(Contact contact: contacts){
             if(contact.getID() > maxID) maxID = contact.getID();
         }
@@ -284,3 +284,6 @@ public class JavaContactBook {
        new JavaContactBook().loopConsole();
     }
 }
+
+// javac -cp "lib/gson-2.10.1.jar" JavaContactBook.java Contact.java
+// java -cp ".;lib/gson-2.10.1.jar" JavaContactBook

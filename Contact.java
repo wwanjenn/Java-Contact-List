@@ -4,7 +4,7 @@ import java.util.Set;
 public class Contact{
     private String name;
     private static int nextID = 1;
-    private final int id;
+    private int id;
     Set<String> nicknames;
     Set<String> numbers ;
     Set<String> emails ;
@@ -63,10 +63,11 @@ public class Contact{
     }
 
     public void printContact(){
-        System.out.println(name);
-        System.out.println(nicknames);
-        System.out.println(numbers);
-        System.out.println(emails);
+        System.out.print(name);
+        System.out.println(", Nicknames: " + nicknames);
+        System.out.print("Numbers: " + numbers);
+        System.out.println(", Emails: " + emails);
+        System.out.println("=".repeat(30));
     }
 
     public void updateName(String newName){

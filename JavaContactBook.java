@@ -165,10 +165,18 @@ public class JavaContactBook {
                     System.out.println("2. Update Number");
                     System.out.println("3. Update Email");
                     System.out.println("4. Update Nickname");
+                    System.out.println("5. Add Number");
+                    System.out.println("6. Add Email");
+                    System.out.println("7. Add Nickname");
+                    System.out.println("8. Delete Number");
+                    System.out.println("9. Delete Email");
+                    System.out.println("0. Delete Nickname");
+                    
                     int choiceUpdate = parseIntChoice(scanner, "Choose an option: ");
                     switch(choiceUpdate){
                         case 1:
                             System.out.println("=== Update Name ===");
+                            System.out.println("Old Name: " + updateContact.getName());
                             System.out.println("New Name: ");
                             String newName = parseStringChoice(scanner, "New Name: ");
                             updateContact.updateName(newName);
@@ -176,6 +184,7 @@ public class JavaContactBook {
                             break;
                         case 2:
                             System.out.println("=== Update Number ===");
+                            System.out.println("Old Numbers: " + updateContact.getNumbers());
                             String oldNumber = parseStringChoice(scanner, "Old Number: ");
                             String newNumber = parseStringChoice(scanner, "New Number: ");
                             updateContact.updatePhoneNumber(newNumber, oldNumber);
@@ -183,6 +192,7 @@ public class JavaContactBook {
                             break;
                         case 3:
                             System.out.println("=== Update Email ===");
+                            System.out.println("Old Emails: " + updateContact.getEmails());
                             String oldEmail = parseStringChoice(scanner, "Old Email: ");
                             String newEmail = parseStringChoice(scanner, "New Email: ");
                             updateContact.updateEmail(newEmail, oldEmail);
@@ -190,11 +200,55 @@ public class JavaContactBook {
                             break;
                         case 4:
                             System.out.println("=== Update Nickname ===");
+                            System.out.println("Old Nicknames: " + updateContact.getNicknames());
                             String oldNickname = parseStringChoice(scanner, "Old Nickname: ");
                             String newNickname = parseStringChoice(scanner, "New Nickname: ");
                             updateContact.updateNickname(newNickname, oldNickname);
                             saved = false;
                             break;
+                        case 5:
+                            System.out.println("=== Add Number ===");
+                            System.out.println("Old Numbers: " + updateContact.getNumbers());
+                            String addNumber = parseStringChoice(scanner, "New Number: ");
+                            updateContact.addPhoneNumber(addNumber);
+                            saved = false;
+                            break;
+                        case 6:
+                            System.out.println("=== Add Email ===");
+                            System.out.println("Old Emails: " + updateContact.getEmails());
+                            String addEmail = parseStringChoice(scanner, "New Email: ");
+                            updateContact.addEmail(addEmail);
+                            saved = false;
+                            break;
+                        case 7:
+                            System.out.println("=== Add Nickname ===");
+                            System.out.println("Old Nicknames: " + updateContact.getNicknames());
+                            String addNickname = parseStringChoice(scanner, "New Nickname: ");
+                            updateContact.addNickname(addNickname);
+                            saved = false;
+                            break;
+                        case 8:
+                            System.out.println("=== Delete Number ===");
+                            System.out.println("Old Numbers: " + updateContact.getNumbers());
+                            String delNumber = parseStringChoice(scanner, "Delete Number: ");
+                            updateContact.deletePhoneNumber(delNumber);
+                            saved = false;
+                            break;
+                        case 9:
+                            System.out.println("=== Delete Email ===");
+                            System.out.println("Old Emails: " + updateContact.getEmails());
+                            String delEmail = parseStringChoice(scanner, "Delete Email: ");
+                            updateContact.deletePhoneNumber(delEmail);
+                            saved = false;
+                            break;
+                        case 0:
+                            System.out.println("=== Update Nickname ===");
+                            System.out.println("Old Nicknames: " + updateContact.getNicknames());
+                            String delNickname = parseStringChoice(scanner, "Delete Nickname: ");
+                            updateContact.deleteNickname(delNickname);
+                            saved = false;
+                            break;
+
                         default:
                             System.out.println("Invalid update choice");
                             break;
